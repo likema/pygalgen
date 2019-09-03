@@ -53,7 +53,10 @@ if style:
 chart = type_(**config)
 type_ = getattr(pygal, cfg.get('type', DEFAULT_TYPE))
 for i in cfg.get('series', ()):
-    chart.add(**i)
+    if isinstance(i, dict):
+        chart.add(**i)
+    elif isinstance(i, (list, tuple)):
+        chart.add(title=i[0], values=i[1:])
 
 if args.output:
     chart.render_to_file(args.output)
