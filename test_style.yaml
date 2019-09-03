@@ -2,7 +2,7 @@ type: Line
 title: Browser usage evolution
 
 style:
-  type: DarkColorizedStyle
+  type: DarkColorized
   title_font_family: Ubuntu
   value_colors: [white, white, white, white]
 

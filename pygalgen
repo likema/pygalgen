@@ -13,10 +13,18 @@ DEFAULT_TYPE = 'Line'
 DEFAULT_STYLE = 'DefaultStyle'
 
 
+def complete_style_type(type_):
+    return type_ if type_.endswith('Style') else '%sStyle' % type_
+
+
 def parse_args():
     parser = ArgumentParser('pygalgen')
-    parser.add_argument('-o', '--output', help='Output SVG file')
-    parser.add_argument('yaml', nargs='?', help='YAML config')
+    parser.add_argument('-o', '--output',
+                        help='Output SVG file, default STDOUT')
+
+    parser.add_argument('yaml', nargs='?',
+                        help='YAML or JSON config, default STDIN')
+
     return parser.parse_args()
 
 
@@ -42,9 +50,11 @@ assign('y_labels', 'y')
 style = config.get('style')
 if style:
     if isinstance(style, str):
-        config['style'] = getattr(pygal.style, style)
+        config['style'] = getattr(pygal.style, complete_style_type(style))
     elif isinstance(style, dict):
-        style_type = getattr(pygal.style, style.get('type', DEFAULT_STYLE))
+        style_type = getattr(
+            pygal.style, complete_style_type(style.get('type', DEFAULT_STYLE)))
+
         del style['type']
         config['style'] = style_type(**style)
     else:
