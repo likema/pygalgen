@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# vim: set ts=4 sw=4 sts=4 et:
+
+from argparse import ArgumentParser
+from sys import stdin
+
+import pygal
+import yaml
+
+
+DEFAULT_TYPE = 'Line'
+
+
+def parse_args():
+    parser = ArgumentParser('pygalgen')
+    parser.add_argument('-o', '--output', help='Output SVG file')
+    parser.add_argument('yaml', nargs='?', help='YAML config')
+    return parser.parse_args()
+
+
+args = parse_args()
+cfg = yaml.load(open(args.yaml) if args.yaml else stdin, Loader=yaml.FullLoader)
+type_ = getattr(pygal, cfg.get('type', DEFAULT_TYPE))
+config = cfg.get('config', {})
+
+def assign(key, alias=None):
+    val = cfg.get(key, cfg.get(alias) if alias else None)
+    if val:
+        config[key] = val
+
+assign('title')
+assign('style')
+assign('x_labels', 'x')
+assign('y_labels', 'y')
+
+style = config.get('style')
+if style:
+    config['style'] = getattr(pygal.style, style)
+
+chart = type_(**config)
+type_ = getattr(pygal, cfg.get('type', DEFAULT_TYPE))
+for i in cfg.get('series', ()):
+    chart.add(**i)
+
+if args.output:
+    chart.render_to_file(args.output)
+else:
+    print(chart.render())
