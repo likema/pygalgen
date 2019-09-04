@@ -1,6 +1,6 @@
 # Pygal generation tool
 
-A tool for generating SVG chart by YAML or JSON.
+A tool for generating SVG or PNG chart by YAML or JSON.
 
 ## Prerequisites
 
@@ -10,19 +10,18 @@ Python 3
 pip install pyyaml pygal
 ```
 
-
 ## Usage
 
 ```
-usage: pygalgen [-h] [-o OUTPUT] [yaml]
+usage: pygalgen [-h] [-t {svg,png}] [-o OUTPUT] [yaml]
 
 positional arguments:
   yaml                  YAML or JSON config, default STDIN
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -o OUTPUT, --output OUTPUT
-                        Output SVG file, default STDOUT
+  -h, --help                      show this help message and exit
+  -t {svg,png}, --type {svg,png}  Output type, default svg
+  -o OUTPUT, --output OUTPUT      Output SVG or PNG file, default STDOUT
 ```
 
 ## Sample YAML

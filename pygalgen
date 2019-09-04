@@ -3,7 +3,7 @@
 # vim: set ts=4 sw=4 sts=4 et:
 
 from argparse import ArgumentParser
-from sys import stdin
+from sys import stdin, stdout
 
 import pygal
 import yaml
@@ -19,8 +19,11 @@ def complete_style_type(type_):
 
 def parse_args():
     parser = ArgumentParser('pygalgen')
+    parser.add_argument('-t', '--type', choices=('svg', 'png'), default='svg',
+                        help='Output type, default svg')
+
     parser.add_argument('-o', '--output',
-                        help='Output SVG file, default STDOUT')
+                        help='Output SVG or PNG file, default STDOUT')
 
     parser.add_argument('yaml', nargs='?',
                         help='YAML or JSON config, default STDIN')
@@ -68,7 +71,12 @@ for i in cfg.get('series', ()):
     elif isinstance(i, (list, tuple)):
         chart.add(title=i[0], values=i[1:])
 
-if args.output:
-    chart.render_to_file(args.output)
+if args.type == 'svg':
+    if args.output:
+        chart.render_to_file(args.output)
+    else:
+        stdout.buffer.write(chart.render())
+elif args.output:
+    chart.render_to_png(args.output)
 else:
-    print(chart.render())
+    stdout.buffer.write(chart.render_to_png())
