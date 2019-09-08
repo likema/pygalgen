@@ -7,7 +7,7 @@ A tool for generating SVG or PNG chart by YAML or JSON.
 Python 3
 
 ```bash
-pip install pyyaml pygal
+pip install pyyaml pygal cairosvg
 ```
 
 ## Usage
@@ -19,9 +19,9 @@ positional arguments:
   yaml                  YAML or JSON config, default STDIN
 
 optional arguments:
-  -h, --help                      show this help message and exit
-  -t {svg,png}, --type {svg,png}  Output type, default svg
-  -o OUTPUT, --output OUTPUT      Output SVG or PNG file, default STDOUT
+  -h, --help                                  show this help message and exit
+  -t {svg,png,table}, --type {svg,png,table}  Output type, default svg
+  -o OUTPUT, --output OUTPUT                  Output SVG or PNG file, default STDOUT
 ```
 
 ## Sample YAML

@@ -19,8 +19,8 @@ def complete_style_type(type_):
 
 def parse_args():
     parser = ArgumentParser('pygalgen')
-    parser.add_argument('-t', '--type', choices=('svg', 'png'), default='svg',
-                        help='Output type, default svg')
+    parser.add_argument('-t', '--type', choices=('svg', 'png', 'html'),
+                        default='svg', help='Output type, default svg')
 
     parser.add_argument('-o', '--output',
                         help='Output SVG or PNG file, default STDOUT')
@@ -35,7 +35,8 @@ args = parse_args()
 cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
                 Loader=yaml.FullLoader)
 
-type_ = getattr(pygal, cfg.get('type', DEFAULT_TYPE))
+raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
+type_ = getattr(pygal, raw_type)
 config = cfg.get('config', {})
 
 
@@ -49,6 +50,9 @@ assign('title')
 assign('style')  # Overwrite config['style'] if exists.
 assign('x_labels', 'x')
 assign('y_labels', 'y')
+
+if args.type == 'html' and 'x_labels' in config:
+    config['x_labels'] = [str(i) for i in config['x_labels']]
 
 style = config.get('style')
 if style:
@@ -64,19 +68,27 @@ if style:
         del config['style']
 
 chart = type_(**config)
-type_ = getattr(pygal, cfg.get('type', DEFAULT_TYPE))
 for i in cfg.get('series', ()):
     if isinstance(i, dict):
         chart.add(**i)
     elif isinstance(i, (list, tuple)):
         chart.add(title=i[0], values=i[1:])
 
+if args.type == 'html':
+    chart.value_formatter = lambda x: '∅' if x is None else str(x)
+
 if args.type == 'svg':
     if args.output:
         chart.render_to_file(args.output)
     else:
         stdout.buffer.write(chart.render())
-elif args.output:
-    chart.render_to_png(args.output)
-else:
-    stdout.buffer.write(chart.render_to_png())
+elif args.type == 'png':
+    if args.output:
+        chart.render_to_png(args.output)
+    else:
+        stdout.buffer.write(chart.render_to_png())
+elif args.type == 'html':
+    if args.output:
+        open(args.output, 'w').write(chart.render_table(style=True))
+    else:
+        stdout.write(chart.render_table(style=True))
