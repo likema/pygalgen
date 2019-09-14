@@ -15,6 +15,30 @@ DEFAULT_TYPE = 'Line'
 DEFAULT_STYLE = 'DefaultStyle'
 
 
+class GoogleClassicStyle(pygal.style.Style):
+    """A Google Spreadsheet Classic theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#757575'
+    foreground_strong = '#757575'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#4285f4',  # ~ RoyalBlue1
+        '#db4437',  # ~ tomato3
+        '#f4b400',  # ~ DarkGoldenrod2
+        '#93c47d',  # ~ dark sea green
+        '#ff6d00',  # ~ DarkOrange1
+        '#46bdc6',  # ~ medium turquoise
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -51,6 +75,8 @@ def parse_args():
 args = parse_args()
 cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
                 Loader=yaml.FullLoader)
+
+pygal.style.GoogleClassicStyle = GoogleClassicStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
