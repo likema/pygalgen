@@ -67,6 +67,8 @@ assign('title')
 assign('style')  # Overwrite config['style'] if exists.
 assign('x_labels', 'x')
 assign('y_labels', 'y')
+assign('x_title')
+assign('y_title')
 
 if args.type == 'html' and 'x_labels' in config:
     config['x_labels'] = [str(i) for i in config['x_labels']]
