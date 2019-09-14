@@ -4,11 +4,13 @@
 
 from argparse import ArgumentParser
 from sys import stdin, stdout
+from os.path import splitext
 
 import pygal
 import yaml
 
 
+ARG_TYPES = ('svg', 'png', 'html')
 DEFAULT_TYPE = 'Line'
 DEFAULT_STYLE = 'DefaultStyle'
 
@@ -19,8 +21,9 @@ def complete_style_type(type_):
 
 def parse_args():
     parser = ArgumentParser('pygalgen')
-    parser.add_argument('-t', '--type', choices=('svg', 'png', 'html'),
-                        default='svg', help='Output type, default svg')
+    parser.add_argument('-t', '--type', choices=ARG_TYPES,
+                        help=('Output type, default output file extension or '
+                              'svg if not specified output'))
 
     parser.add_argument('-o', '--output',
                         help='Output SVG or PNG file, default STDOUT')
@@ -28,7 +31,21 @@ def parse_args():
     parser.add_argument('yaml', nargs='?',
                         help='YAML or JSON config, default STDIN')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.type:
+        return args
+
+    if args.output:
+        try:
+            type_ = splitext(args.output)[1][1:]
+            if type_ in ARG_TYPES:
+                args.type = type_
+        except Exception:
+            pass
+    else:
+        args.type = 'svg'
+
+    return args
 
 
 args = parse_args()
@@ -74,9 +91,6 @@ for i in cfg.get('series', ()):
     elif isinstance(i, (list, tuple)):
         chart.add(title=i[0], values=i[1:])
 
-if args.type == 'html':
-    chart.value_formatter = lambda x: '∅' if x is None else str(x)
-
 if args.type == 'svg':
     if args.output:
         chart.render_to_file(args.output)
@@ -88,6 +102,7 @@ elif args.type == 'png':
     else:
         stdout.buffer.write(chart.render_to_png())
 elif args.type == 'html':
+    chart.value_formatter = lambda x: '∅' if x is None else str(x)
     if args.output:
         open(args.output, 'w').write(chart.render_table(style=True))
     else:
