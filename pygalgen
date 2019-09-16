@@ -159,6 +159,30 @@ class GoogleShiftStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleMomentumStyle(pygal.style.Style):
+    """A Google Spreadsheet Momentum theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#424242'
+    foreground_strong = '#424242'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#c0791b',  # ~ dark goldenrod
+        '#0b6374',  # ~ DeepSkyBlue4
+        '#fd5b58',  # ~ tomato
+        '#27278b',  # ~ RoyalBlue4
+        '#8dd8d3',  # ~ PaleTurquoise3
+        '#d7e6a3',  # ~ pale goldenrod
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -202,6 +226,7 @@ pygal.style.GoogleSimpleLightStyle = GoogleSimpleLightStyle
 pygal.style.GoogleStreamlineStyle = GoogleStreamlineStyle
 pygal.style.GoogleParadigmStyle = GoogleParadigmStyle
 pygal.style.GoogleShiftStyle = GoogleShiftStyle
+pygal.style.GoogleMomentumStyle = GoogleMomentumStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
