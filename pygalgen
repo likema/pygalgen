@@ -135,6 +135,30 @@ class GoogleParadigmStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleShiftStyle(pygal.style.Style):
+    """A Google Spreadsheet Shift theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#233a44'
+    foreground_strong = '#233a44'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#00796b',  # ~ turquoise4
+        '#bf8659',  # ~ LightSalmon3
+        '#00435e',  # ~ DodgerBlue4
+        '#d9563f',  # ~ coral3
+        '#e7bb63',  # ~ sandy brown
+        '#144cf5',  # ~ DodgerBlue3
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -177,6 +201,7 @@ pygal.style.GoogleStandardStyle = GoogleStandardStyle
 pygal.style.GoogleSimpleLightStyle = GoogleSimpleLightStyle
 pygal.style.GoogleStreamlineStyle = GoogleStreamlineStyle
 pygal.style.GoogleParadigmStyle = GoogleParadigmStyle
+pygal.style.GoogleShiftStyle = GoogleShiftStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
