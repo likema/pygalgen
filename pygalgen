@@ -111,6 +111,30 @@ class GoogleStreamlineStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleParadigmStyle(pygal.style.Style):
+    """A Google Spreadsheet Paradigm theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#071924'
+    foreground_strong = '#071924'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#002f4a',  # ~ midnight blue
+        '#b85741',  # ~ coral3
+        '#ad8463',  # ~ LightSalmon3
+        '#009384',  # ~ cyan4
+        '#eddac9',  # ~ AntiqueWhite2
+        '#6fc8d6',  # ~ DarkSlateGray3
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Georgia,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -152,6 +176,7 @@ pygal.style.GoogleClassicStyle = GoogleClassicStyle
 pygal.style.GoogleStandardStyle = GoogleStandardStyle
 pygal.style.GoogleSimpleLightStyle = GoogleSimpleLightStyle
 pygal.style.GoogleStreamlineStyle = GoogleStreamlineStyle
+pygal.style.GoogleParadigmStyle = GoogleParadigmStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
