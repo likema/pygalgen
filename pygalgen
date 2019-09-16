@@ -63,6 +63,30 @@ class GoogleStandardStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleSimpleLightStyle(pygal.style.Style):
+    """A Google Spreadsheet Simple Light theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#757575'
+    foreground_strong = '#757575'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#5891ad',  # ~ cadet blue
+        '#004561',  # ~ DodgerBlue4
+        '#ff6f31',  # ~ chocolate1
+        '#1c7685',  # ~ DeepSkyBlue4
+        '#0f45a8',  # ~ DodgerBlue4
+        '#4cdc8b',  # ~ SeaGreen2
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -102,6 +126,7 @@ cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
 
 pygal.style.GoogleClassicStyle = GoogleClassicStyle
 pygal.style.GoogleStandardStyle = GoogleStandardStyle
+pygal.style.GoogleSimpleLightStyle = GoogleSimpleLightStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
