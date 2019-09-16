@@ -231,6 +231,30 @@ class GoogleEnergeticStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleOceanStyle(pygal.style.Style):
+    """A Google Spreadsheet Ocean theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#005975'
+    foreground_strong = '#005975'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#0078b8',  # ~ DodgerBlue3
+        '#0091de',  # ~ DeepSkyBlue3
+        '#00a3fa',  # ~ DeepSkyBlue2
+        '#42bdff',  # ~ SteelBlue1
+        '#6eccff',  # ~ SteelBlue1
+        '#8fe1ff',  # ~ CadetBlue2
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -277,6 +301,7 @@ pygal.style.GoogleShiftStyle = GoogleShiftStyle
 pygal.style.GoogleMomentumStyle = GoogleMomentumStyle
 pygal.style.GoogleEarthyStyle = GoogleEarthyStyle
 pygal.style.GoogleEnergeticStyle = GoogleEnergeticStyle
+pygal.style.GoogleOceanStyle = GoogleOceanStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
