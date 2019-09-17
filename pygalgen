@@ -375,6 +375,30 @@ class GoogleVintageStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleRetroStyle(pygal.style.Style):
+    """A Google Spreadsheet Retro theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#314c59'
+    foreground_strong = '#314c59'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#006391',  # ~ DeepSkyBlue4
+        '#e24a38',  # ~ brown2
+        '#feb929',  # ~ goldenrod1
+        '#28998b',  # ~ aquamarine4
+        '#c0de00',  # ~ yellow3
+        '#f5959c',  # ~ LightPink2
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -427,6 +451,7 @@ pygal.style.GoogleGroovyStyle = GoogleGroovyStyle
 pygal.style.GoogleCalmStyle = GoogleCalmStyle
 pygal.style.GoogleForestStyle = GoogleForestStyle
 pygal.style.GoogleVintageStyle = GoogleVintageStyle
+pygal.style.GoogleRetroStyle = GoogleRetroStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
