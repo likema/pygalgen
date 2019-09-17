@@ -303,6 +303,30 @@ class GoogleGroovyStyle(pygal.style.Style):
     value_font_size = 12
 
 
+class GoogleCalmStyle(pygal.style.Style):
+    """A Google Spreadsheet Calm theme"""
+
+    background = 'transparent'
+    plot_background = 'transparent'
+    foreground = '#242f26'
+    foreground_strong = '#242f26'
+    foreground_subtle = '#cccccc'
+    colors = (
+        '#608f66',  # ~ DarkSeaGreen4
+        '#274766',  # ~ dark slate gray
+        '#dfa398',  # ~ RosyBrown3
+        '#ab9084',  # ~ rosy brown
+        '#613942',  # ~ gray29
+        '#e68ca5',  # ~ PaleVioletRed2
+    )
+
+    value_colors = colors
+    font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
+    title_font_size = 14
+    legend_font_size = 14
+    value_font_size = 12
+
+
 def complete_style_type(type_):
     return type_ if type_.endswith('Style') else '%sStyle' % type_
 
@@ -352,6 +376,7 @@ pygal.style.GoogleEnergeticStyle = GoogleEnergeticStyle
 pygal.style.GoogleOceanStyle = GoogleOceanStyle
 pygal.style.GoogleCozyStyle = GoogleCozyStyle
 pygal.style.GoogleGroovyStyle = GoogleGroovyStyle
+pygal.style.GoogleCalmStyle = GoogleCalmStyle
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
