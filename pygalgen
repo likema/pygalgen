@@ -23,6 +23,7 @@ class GoogleClassicStyle(pygal.style.Style):
     foreground = '#757575'
     foreground_strong = '#757575'
     foreground_subtle = '#cccccc'
+    guide_stroke_color = '#cccccc'
     colors = (
         '#4285f4',  # ~ RoyalBlue1
         '#db4437',  # ~ tomato3
@@ -32,21 +33,15 @@ class GoogleClassicStyle(pygal.style.Style):
         '#46bdc6',  # ~ medium turquoise
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
     title_font_size = 14
     legend_font_size = 14
     value_font_size = 12
 
 
-class GoogleStandardStyle(pygal.style.Style):
+class GoogleStandardStyle(GoogleClassicStyle):
     """A Google Spreadsheet Standard theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
-    foreground = '#757575'
-    foreground_strong = '#757575'
-    foreground_subtle = '#cccccc'
     colors = (
         '#4285f4',  # ~ RoyalBlue1
         '#ea4335',  # ~ brown2
@@ -56,21 +51,10 @@ class GoogleStandardStyle(pygal.style.Style):
         '#46bdc6',  # ~ medium turquoise
     )
 
-    value_colors = colors
-    font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
-
-class GoogleSimpleLightStyle(pygal.style.Style):
+class GoogleSimpleLightStyle(GoogleClassicStyle):
     """A Google Spreadsheet Simple Light theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
-    foreground = '#757575'
-    foreground_strong = '#757575'
-    foreground_subtle = '#cccccc'
     colors = (
         '#5891ad',  # ~ cadet blue
         '#004561',  # ~ DodgerBlue4
@@ -80,21 +64,12 @@ class GoogleSimpleLightStyle(pygal.style.Style):
         '#4cdc8b',  # ~ SeaGreen2
     )
 
-    value_colors = colors
-    font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
-
-class GoogleStreamlineStyle(pygal.style.Style):
+class GoogleStreamlineStyle(GoogleClassicStyle):
     """A Google Spreadsheet Streamline theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#1a1a1a'
     foreground_strong = '#1a1a1a'
-    foreground_subtle = '#cccccc'
     colors = (
         '#1a9988',  # ~ cyan4
         '#2d729d',  # ~ SteelBlue4
@@ -104,21 +79,14 @@ class GoogleStreamlineStyle(pygal.style.Style):
         '#ffd4b8',  # ~ peach puff
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleParadigmStyle(pygal.style.Style):
+class GoogleParadigmStyle(GoogleClassicStyle):
     """A Google Spreadsheet Paradigm theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#071924'
     foreground_strong = '#071924'
-    foreground_subtle = '#cccccc'
     colors = (
         '#002f4a',  # ~ midnight blue
         '#b85741',  # ~ coral3
@@ -128,21 +96,14 @@ class GoogleParadigmStyle(pygal.style.Style):
         '#6fc8d6',  # ~ DarkSlateGray3
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Georgia,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleShiftStyle(pygal.style.Style):
+class GoogleShiftStyle(GoogleClassicStyle):
     """A Google Spreadsheet Shift theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#233a44'
     foreground_strong = '#233a44'
-    foreground_subtle = '#cccccc'
     colors = (
         '#00796b',  # ~ turquoise4
         '#bf8659',  # ~ LightSalmon3
@@ -152,21 +113,14 @@ class GoogleShiftStyle(pygal.style.Style):
         '#144cf5',  # ~ DodgerBlue3
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleMomentumStyle(pygal.style.Style):
+class GoogleMomentumStyle(GoogleClassicStyle):
     """A Google Spreadsheet Momentum theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#424242'
     foreground_strong = '#424242'
-    foreground_subtle = '#cccccc'
     colors = (
         '#c0791b',  # ~ dark goldenrod
         '#0b6374',  # ~ DeepSkyBlue4
@@ -176,21 +130,14 @@ class GoogleMomentumStyle(pygal.style.Style):
         '#d7e6a3',  # ~ pale goldenrod
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleEarthyStyle(pygal.style.Style):
+class GoogleEarthyStyle(GoogleClassicStyle):
     """A Google Spreadsheet Earthy theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#3e5656'
     foreground_strong = '#3e5656'
-    foreground_subtle = '#cccccc'
     colors = (
         '#b0725d',  # ~ salmon3
         '#8f3738',  # ~ IndianRed4
@@ -200,21 +147,14 @@ class GoogleEarthyStyle(pygal.style.Style):
         '#8b8948',  # ~ khaki4
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleEnergeticStyle(pygal.style.Style):
+class GoogleEnergeticStyle(GoogleClassicStyle):
     """A Google Spreadsheet Energetic theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#2c2c4d'
     foreground_strong = '#2c2c4d'
-    foreground_subtle = '#cccccc'
     colors = (
         '#1d2384',  # ~ midnight blue
         '#e44819',  # ~ OrangeRed2
@@ -224,21 +164,14 @@ class GoogleEnergeticStyle(pygal.style.Style):
         '#d1eb60',  # ~ DarkOliveGreen2
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleOceanStyle(pygal.style.Style):
+class GoogleOceanStyle(GoogleClassicStyle):
     """A Google Spreadsheet Ocean theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#005975'
     foreground_strong = '#005975'
-    foreground_subtle = '#cccccc'
     colors = (
         '#0078b8',  # ~ DodgerBlue3
         '#0091de',  # ~ DeepSkyBlue3
@@ -248,21 +181,14 @@ class GoogleOceanStyle(pygal.style.Style):
         '#8fe1ff',  # ~ CadetBlue2
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleCozyStyle(pygal.style.Style):
+class GoogleCozyStyle(GoogleClassicStyle):
     """A Google Spreadsheet Cozy theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#344846'
     foreground_strong = '#344846'
-    foreground_subtle = '#cccccc'
     colors = (
         '#00535c',  # ~ dark slate gray
         '#cd840e',  # ~ orange3
@@ -272,21 +198,14 @@ class GoogleCozyStyle(pygal.style.Style):
         '#3862b5',  # ~ RoyalBlue3
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleGroovyStyle(pygal.style.Style):
+class GoogleGroovyStyle(GoogleClassicStyle):
     """A Google Spreadsheet Groovy theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#1a2f40'
     foreground_strong = '#1a2f40'
-    foreground_subtle = '#cccccc'
     colors = (
         '#c93232',  # ~ brown3
         '#e27228',  # ~ chocolate2
@@ -296,21 +215,14 @@ class GoogleGroovyStyle(pygal.style.Style):
         '#1f95d1',  # ~ DeepSkyBlue3
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleCalmStyle(pygal.style.Style):
+class GoogleCalmStyle(GoogleClassicStyle):
     """A Google Spreadsheet Calm theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#242f26'
     foreground_strong = '#242f26'
-    foreground_subtle = '#cccccc'
     colors = (
         '#608f66',  # ~ DarkSeaGreen4
         '#274766',  # ~ dark slate gray
@@ -320,21 +232,14 @@ class GoogleCalmStyle(pygal.style.Style):
         '#e68ca5',  # ~ PaleVioletRed2
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Verdana,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleForestStyle(pygal.style.Style):
+class GoogleForestStyle(GoogleClassicStyle):
     """A Google Spreadsheet Forest theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#264540'
     foreground_strong = '#264540'
-    foreground_subtle = '#cccccc'
     colors = (
         '#0f6b4f',  # ~ SpringGreen4
         '#388a66',  # ~ sea green
@@ -344,21 +249,14 @@ class GoogleForestStyle(pygal.style.Style):
         '#a0dbc1',  # ~ PaleTurquoise3
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleVintageStyle(pygal.style.Style):
+class GoogleVintageStyle(GoogleClassicStyle):
     """A Google Spreadsheet Vintage theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#585858'
     foreground_strong = '#585858'
-    foreground_subtle = '#cccccc'
     colors = (
         '#d4541b',  # ~ chocolate3
         '#005454',  # ~ dark slate gray
@@ -368,21 +266,14 @@ class GoogleVintageStyle(pygal.style.Style):
         '#9bbbaa',  # ~ gray67
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Georgia,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleRetroStyle(pygal.style.Style):
+class GoogleRetroStyle(GoogleClassicStyle):
     """A Google Spreadsheet Retro theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#314c59'
     foreground_strong = '#314c59'
-    foreground_subtle = '#cccccc'
     colors = (
         '#006391',  # ~ DeepSkyBlue4
         '#e24a38',  # ~ brown2
@@ -392,21 +283,14 @@ class GoogleRetroStyle(pygal.style.Style):
         '#f5959c',  # ~ LightPink2
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
-class GoogleCoralStyle(pygal.style.Style):
+class GoogleCoralStyle(GoogleClassicStyle):
     """A Google Spreadsheet Coral theme"""
 
-    background = 'transparent'
-    plot_background = 'transparent'
     foreground = '#1a3438'
     foreground_strong = '#1a3438'
-    foreground_subtle = '#cccccc'
     colors = (
         '#d77659',  # ~ salmon3
         '#ab4028',  # ~ sienna
@@ -416,11 +300,7 @@ class GoogleCoralStyle(pygal.style.Style):
         '#9bccc6',  # ~ PaleTurquoise3
     )
 
-    value_colors = colors
     font_family = 'Roboto,RobotoDraft,Helvetica,Georgia,sans-serif'
-    title_font_size = 14
-    legend_font_size = 14
-    value_font_size = 12
 
 
 def complete_style_type(type_):
