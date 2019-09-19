@@ -309,6 +309,9 @@ def complete_style_type(type_):
 
 def parse_args():
     parser = ArgumentParser('pygalgen')
+    parser.add_argument('--list-styles', action='store_true',
+                        help='List all available styles.')
+
     parser.add_argument('-t', '--type', choices=ARG_TYPES,
                         help=('Output type, default output file extension or '
                               'svg if not specified output'))
@@ -338,8 +341,6 @@ def parse_args():
 
 
 args = parse_args()
-cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
-                Loader=yaml.FullLoader)
 
 pygal.style.GoogleClassicStyle = GoogleClassicStyle
 pygal.style.GoogleStandardStyle = GoogleStandardStyle
@@ -358,6 +359,18 @@ pygal.style.GoogleForestStyle = GoogleForestStyle
 pygal.style.GoogleVintageStyle = GoogleVintageStyle
 pygal.style.GoogleRetroStyle = GoogleRetroStyle
 pygal.style.GoogleCoralStyle = GoogleCoralStyle
+
+if args.list_styles:
+    for name, cls in pygal.style.__dict__.items():
+        if not isinstance(cls, type) or not issubclass(cls, pygal.style.Style):
+            continue
+
+        print('%s - %s' % (name, cls.__doc__))
+
+    exit(0)
+
+cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
+                Loader=yaml.FullLoader)
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
