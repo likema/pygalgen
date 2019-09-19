@@ -316,7 +316,11 @@ def parse_args():
                         help=('Output type, default output file extension or '
                               'svg if not specified output'))
 
+    parser.add_argument('-j', '--js', action='append',
+                        help='Javascript file, effective when type is PNG')
+
     parser.add_argument('-s', '--style', help='Style name')
+
     parser.add_argument('-o', '--output',
                         help='Output SVG or PNG file, default STDOUT')
 
@@ -408,6 +412,17 @@ if style:
         del config['style']
 elif args.style:
     config['style'] = getattr(pygal.style, complete_style_type(args.style))
+
+js = config.get('js')
+if js:
+    if isinstance(js, str):
+        config['js'] = js,
+    elif isinstance(js, (list, tuple)):
+        config['js'] = js
+    else:
+        del config['js']
+elif args.js:
+    config['js'] = args.js
 
 chart = type_(**config)
 for i in cfg.get('series', ()):
