@@ -313,6 +313,7 @@ def parse_args():
                         help=('Output type, default output file extension or '
                               'svg if not specified output'))
 
+    parser.add_argument('-s', '--style', help='Style name')
     parser.add_argument('-o', '--output',
                         help='Output SVG or PNG file, default STDOUT')
 
@@ -385,12 +386,15 @@ if style:
         config['style'] = getattr(pygal.style, complete_style_type(style))
     elif isinstance(style, dict):
         style_type = getattr(
-            pygal.style, complete_style_type(style.get('type', DEFAULT_STYLE)))
+            pygal.style, complete_style_type(
+                style.get('type', args.style or DEFAULT_STYLE)))
 
         del style['type']
         config['style'] = style_type(**style)
     else:
         del config['style']
+elif args.style:
+    config['style'] = getattr(pygal.style, complete_style_type(args.style))
 
 chart = type_(**config)
 for i in cfg.get('series', ()):
