@@ -13,15 +13,26 @@ pip install pyyaml pygal cairosvg
 ## Usage
 
 ```
-usage: pygalgen [-h] [-t {svg,png}] [-o OUTPUT] [yaml]
+usage: pygalgen [-h] [--list-styles] [-t {svg,png,html}] [-j JS] [-s STYLE]
+                [-o OUTPUT]
+                [yaml]
 
 positional arguments:
   yaml                  YAML or JSON config, default STDIN
 
 optional arguments:
-  -h, --help                                  show this help message and exit
-  -t {svg,png,table}, --type {svg,png,table}  Output type, default svg
-  -o OUTPUT, --output OUTPUT                  Output SVG or PNG file, default STDOUT
+  -h, --help            show this help message and exit
+  --list-styles         List all available styles.
+  -t {svg,png,html}, --type {svg,png,html}
+                        Output type, default output file extension or svg if
+                        not specified output
+  -j JS, --js JS        Javascript file, effective when type is PNG
+  -s STYLE, --style STYLE
+                        Style name, override style name only when trailing
+                        with a "!", override entire style when trailing with
+                        two "!"
+  -o OUTPUT, --output OUTPUT
+                        Output SVG or PNG file, default STDOUT
 ```
 
 ## Sample YAML

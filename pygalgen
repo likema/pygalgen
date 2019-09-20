@@ -13,6 +13,8 @@ import yaml
 ARG_TYPES = ('svg', 'png', 'html')
 DEFAULT_TYPE = 'Line'
 DEFAULT_STYLE = 'DefaultStyle'
+OVERRIDE_STYLE_NAME = 1
+OVERRIDE_STYLE = 2
 
 
 class GoogleClassicStyle(pygal.style.Style):
@@ -319,7 +321,10 @@ def parse_args():
     parser.add_argument('-j', '--js', action='append',
                         help='Javascript file, effective when type is PNG')
 
-    parser.add_argument('-s', '--style', help='Style name')
+    parser.add_argument(
+        '-s', '--style',
+        help=('Style name, override style name only when trailing with a "!", '
+              'override entire style when trailing with two "!"'))
 
     parser.add_argument('-o', '--output',
                         help='Output SVG or PNG file, default STDOUT')
@@ -340,6 +345,12 @@ def parse_args():
             pass
     else:
         args.type = 'svg'
+
+    if args.style:
+        args.override_style = args.style.count('!')
+        args.style = args.style.replace('!', '')
+    else:
+        args.override_style = None
 
     return args
 
@@ -374,7 +385,7 @@ if args.list_styles:
     exit(0)
 
 cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
-                Loader=yaml.FullLoader)
+                Loader=yaml.SafeLoader)
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
@@ -397,21 +408,35 @@ assign('y_title')
 if args.type == 'html' and 'x_labels' in config:
     config['x_labels'] = [str(i) for i in config['x_labels']]
 
+style_name = None
 style = config.get('style')
 if style:
     if isinstance(style, str):
-        config['style'] = getattr(pygal.style, complete_style_type(style))
-    elif isinstance(style, dict):
-        style_type = getattr(
-            pygal.style, complete_style_type(
-                style.get('type', args.style or DEFAULT_STYLE)))
+        if not args.override_style:
+            style_name = style
 
-        del style['type']
-        config['style'] = style_type(**style)
+        style = None
+    elif isinstance(style, dict):
+        if args.override_style == OVERRIDE_STYLE:
+            style = None
+        else:
+            if not args.override_style:
+                style_name = style.get('type', args.style or DEFAULT_STYLE)
+
+            del style['type']
     else:
         del config['style']
-elif args.style:
-    config['style'] = getattr(pygal.style, complete_style_type(args.style))
+        style = None
+
+if not style_name and args.style:
+    style_name = args.style
+
+if style_name:
+    style_cls_name = complete_style_type(style_name)
+    if style:
+        config['style'] = getattr(pygal.style, style_cls_name)(**style)
+    else:
+        config['style'] = getattr(pygal.style, style_cls_name)
 
 js = config.get('js')
 if js:
