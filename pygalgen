@@ -3,7 +3,7 @@
 # vim: set ts=4 sw=4 sts=4 et:
 
 from argparse import ArgumentParser
-from sys import stdin, stdout
+from sys import stdin, stdout, stderr
 from os.path import splitext
 
 import pygal
@@ -321,6 +321,8 @@ def parse_args():
     parser.add_argument('-j', '--js', action='append',
                         help='Javascript file, effective when type is PNG')
 
+    parser.add_argument('-c', '--config', help='Config block in YAML or JSON')
+
     parser.add_argument(
         '-s', '--style',
         help=('Style name, override style name only when trailing with a "!", '
@@ -333,6 +335,12 @@ def parse_args():
                         help='YAML or JSON config, default STDIN')
 
     args = parser.parse_args()
+    if args.style:
+        args.override_style = args.style.count('!')
+        args.style = args.style.replace('!', '')
+    else:
+        args.override_style = None
+
     if args.type:
         return args
 
@@ -345,12 +353,6 @@ def parse_args():
             pass
     else:
         args.type = 'svg'
-
-    if args.style:
-        args.override_style = args.style.count('!')
-        args.style = args.style.replace('!', '')
-    else:
-        args.override_style = None
 
     return args
 
@@ -384,12 +386,19 @@ if args.list_styles:
 
     exit(0)
 
+config = {}
+if args.config:
+    try:
+        config = yaml.load(open(args.config), Loader=yaml.SafeLoader)
+    except Exception as e:
+        print('WARNING: Ignore %s, %s' % (args.config, e), file=stderr)
+
 cfg = yaml.load(open(args.yaml) if args.yaml else stdin,
                 Loader=yaml.SafeLoader)
 
 raw_type = 'Bar' if args.type == 'html' else cfg.get('type', DEFAULT_TYPE)
 type_ = getattr(pygal, raw_type)
-config = cfg.get('config', {})
+config.update(cfg.get('config', {}))
 
 
 def assign(key, alias=None):
@@ -423,7 +432,8 @@ if style:
             if not args.override_style:
                 style_name = style.get('type', args.style or DEFAULT_STYLE)
 
-            del style['type']
+            if 'type' in style:
+                del style['type']
     else:
         del config['style']
         style = None

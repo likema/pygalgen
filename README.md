@@ -27,6 +27,8 @@ optional arguments:
                         Output type, default output file extension or svg if
                         not specified output
   -j JS, --js JS        Javascript file, effective when type is PNG
+  -c CONFIG, --config CONFIG
+                        Config block in YAML or JSON
   -s STYLE, --style STYLE
                         Style name, override style name only when trailing
                         with a "!", override entire style when trailing with
